@@ -4,9 +4,9 @@ const { Search } = Input;
 
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
-const Navbar = (props) => {
+const NavbarAdmin = (props) => {
   const [size, setSize] = useState("default");
-  
+  const isAdmin = props.activeRole === 0;
 
   return (
     <div className=" border-b-[1px] border-gray-400 w-full flex pb-2  justify-between items-end font font-MonaSans ">
@@ -26,7 +26,7 @@ const Navbar = (props) => {
           New
         </Button>
 
-        {props.activeItem ? (
+        {(props.activeItem && isAdmin) ? (
           <Button size={size}  onClick={props.toggleEdit}>
             Edit
           </Button>
@@ -36,7 +36,7 @@ const Navbar = (props) => {
           </Button>
         )}
 
-        {props.activeItem ? (
+        {(props.activeItem && isAdmin)? (
           <Button size={size} onClick={props.toggleDelete} >
             Delete
           </Button>
@@ -50,4 +50,4 @@ const Navbar = (props) => {
   );
 };
 
-export default Navbar;
+export default NavbarAdmin;

@@ -18,7 +18,7 @@ import {
     MOVIE_DETAIL_REQUEST,
     MOVIE_DETAIL_SUCCESS,
     MOVIE_DETAIL_FAIL,
-    MOVIE_DETAIL_RESET
+    MOVIE_DETAIL_RESET,U
   } from "../constants/movieConstant";
   
   export const movieListReducer = (state = { loading: true, movieList: [] }, action) => {
@@ -63,21 +63,6 @@ import {
             return {loading: false, error: action.payload};
         default:
             return state;
-    }
-  }
-
-  export const categoryDetailReducer = (state = {category: {}},action)=>{
-    switch (action.type){
-      case CATEGORY_DETAIL_REQUEST:
-        return {...state, loading:true};
-      case CATEGORY_DETAIL_SUCCESS:
-        return {loading: false, category: action.payload.data};
-      case CATEGORY_DETAIL_FAIL:
-        return {loading: false, error: action.payload.data};
-      case CATEGORY_DETAIL_RESET:
-        return {category:{}};
-      default:
-        return state;
     }
   }
 

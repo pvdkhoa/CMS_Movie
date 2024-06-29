@@ -16,6 +16,7 @@ const { Header, Sider, Content } = Layout;
 import { logo } from "../assets/images";
 import MovieCategory from "./movies/movie_category";
 import MovieGenre from "./movies/movie_genre";
+import Account from "./account/account";
 
 const AdminPage = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -52,6 +53,15 @@ const AdminPage = () => {
     setAccountPage(false);
     setRatingPage(false);
   };
+
+  const toggleAccountPage = () => {
+    setIsLoading(true);
+    setMoviePage(false);
+    setCategoryPage(false);
+    setGenrePage(false)
+    setAccountPage(true);
+    setRatingPage(false);
+  }
 
   useEffect(() => {
     if (isLoading) {
@@ -103,6 +113,7 @@ const AdminPage = () => {
               key: "4",
               icon: <UserOutlined />,
               label: "Account",
+              onClick: toggleAccountPage
             },
             {
               key: "5",
@@ -145,6 +156,7 @@ const AdminPage = () => {
               {isMoviePage && <Movie />}
               {isCategoryPage && <MovieCategory />}
               {isGenrePage && <MovieGenre/>}
+              {isAccountPage && <Account/>}
             </>
           )}
         </Content>

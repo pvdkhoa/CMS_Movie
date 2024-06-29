@@ -26,7 +26,7 @@ export const createMovie = (movieData) => async (dispatch,getState) =>{
 
         await clientAxios.post(`/v1/movie/create`,movieData)
 
-        dispatch({type: MOVIE_REGISTER_SUCCESS,})
+        dispatch({type: MOVIE_REGISTER_SUCCESS})
 
     }catch(error){
         dispatch({

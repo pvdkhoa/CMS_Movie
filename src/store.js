@@ -14,8 +14,15 @@ import {
 } from "./reducer/categoryReducer";
 
 import {uploadImageReducer, uploadVideoReducer } from "./reducer/uploadRecucer";
+import { accountDeleteReducer,  accountDetailReducer,  accountRegisterReducer , accountsListReducer, accountUpdateReducer } from "./reducer/accountReducer";
 
 const rootReducer = combineReducers({
+  accountList: accountsListReducer,
+  accountDelete: accountDeleteReducer,
+  accountRegister: accountRegisterReducer,
+  accountUpdate: accountUpdateReducer,
+  accountDetail: accountDetailReducer,
+
   movieList: movieListReducer,
   movieDelete: movieDeleteReducer,
   movieRegister: movieRegisterReducer,

@@ -15,6 +15,9 @@ const TableComp = (props) => {
     }),
     onSelect: (record) => {
       props.selectedRow(record.id); 
+      if(record.role != null || record.role != undefined){
+        props.selectedAccount(record.role)
+      }
     },
   };
   return (
