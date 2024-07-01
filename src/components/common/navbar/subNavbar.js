@@ -12,7 +12,11 @@ const SubNavBar = (props) => {
   return (
     <div className=" border-b-[1px] border-gray-400 w-full flex pb-2  justify-between items-end font font-MonaSans ">
       <div className="flex flex-row items-center w-1/3 ">
-        <LeftOutlined style={{width:25, height:25, fontSize: 28}} onClick={props.toggleActor}/>
+        <LeftOutlined style={{width:25, height:25, fontSize: 28}} onClick={() => {
+
+        props.toggleBack();
+        
+      }}/>
         <p className="ml-2 font-bold text-lg">{props.searchTitle}</p>
 
       </div>

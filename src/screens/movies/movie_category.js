@@ -9,7 +9,7 @@ import CategoryRegisterForm from "../../components/common/form/category-register
 
 import { useDispatch, useSelector } from "react-redux";
 import { listAllCategoryAndGenre, deleteCategory, listDetailCategory } from "../../actions/categoryAction";
-import { Spin } from "antd";
+import { Empty, Spin } from "antd";
 import CategoryEditForm from "../../components/common/form/category-edit-form";
 import NavbarCategory from "../../components/common/navbar/navbarCategory";
 
@@ -30,7 +30,12 @@ const MovieCategory = () => {
   const CategoryDetailList = useSelector(
     (state) => state.categoryDetail?.category
   )
-  const totalCategory = CategoryList?.filter((item) => item.kind === 0).length ;
+  let totalCategory 
+  try{
+    totalCategory = CategoryList?.filter((item) => item.kind === 0).length ;
+  }catch(error){
+    totalCategory = 0;
+  }
   
 
   // Toggle modal
@@ -138,7 +143,7 @@ const MovieCategory = () => {
             <div className="flex justify-center items-center h-full">
               <Spin size="large" />
             </div>
-          ) : (
+          ) :CategoryList ? (
             <TableComp
             data={CategoryList?.filter((item) => item.kind === 0)?.map(
               (item, index) => ({
@@ -150,7 +155,7 @@ const MovieCategory = () => {
             selectedRow={updateCategoryID}
             totalItem={totalCategory}
           />
-          )}
+          ): (<Empty/>)}
         
       </div>
     </>

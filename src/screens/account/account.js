@@ -4,7 +4,7 @@ import TableComp from "../../components/common/table/table";
 import ModalComp from "../../components/common/modal/modal";
 import ConfirmModal from "../../components/common/modal/confirm-modal";
 import ModalEdit from "../../components/common/modal/edit-modal";
-import { Spin } from "antd";
+import { Empty, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { listAllAccounts, deleteAccount,listAccountDetail } from "../../actions/accountAction";
 import AccountRegisterForm from "../../components/common/form/account-register-form";
@@ -13,7 +13,7 @@ import AccountEditForm from "../../components/common/form/account-edit-form";
 
 const Account = () => {
   const dispatch = useDispatch();
-  const accountSearchTitle = "Account Name";
+  const accountSearchTitle = "Account";
   const accountEditTitle = "Account Edit";
   const accountTitle = "Account Register";
   const [modalNew, setModalNew] = useState(false);
@@ -25,7 +25,12 @@ const Account = () => {
   const AccountList = useSelector((state) => state.accountList?.accounts);
   const AccountDetail = useSelector((state) => state.accountDetail?.account);
   console.log(AccountDetail)
-  const totalAccounts = AccountList.length;
+  let totalAccounts ;
+  try{
+    totalAccounts = AccountList.length;
+  }catch(error){
+    totalAccounts = 0;
+  }
 
   const columns = [
     {
@@ -149,7 +154,7 @@ const Account = () => {
           <div className="flex justify-center items-center h-full">
             <Spin size="large" />
           </div>
-        ) : (
+        ) : AccountList ? (
           <TableComp
             data={AccountList?.map((item, index) => ({
               ...item,
@@ -160,7 +165,7 @@ const Account = () => {
             selectedAccount={updateRole}
             totalItem={totalAccounts}
           />
-        )}
+        ) : (<Empty/>)}
       </div>
     </>
   );

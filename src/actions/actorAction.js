@@ -12,6 +12,8 @@ export const listActorByMovieID = (movieID) => async (dispatch, getState) => {
       params,
     });
 
+
+
     dispatch({ type: ACTOR_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -86,6 +88,7 @@ export const updateActor = (actorData) => async (dispatch, getState) => {
 export const listActorDetail = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ACTOR_DETAIL_REQUEST });
+    
 
     const { data } = await clientAxios.get(`/v1/participant/detail/${id}`);
 

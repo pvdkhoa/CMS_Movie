@@ -12,14 +12,14 @@ import {
   deleteCategory
 } from "../../actions/categoryAction";
 import GenreRegisterForm from "../../components/common/form/genre-register-form";
-import { Spin } from "antd";
+import { Empty, Spin } from "antd";
 import ModalEdit from "../../components/common/modal/edit-modal";
 import CategoryEditForm from "../../components/common/form/category-edit-form";
 
 const MovieGenre = () => {
   const genreTitle = "Genre Register";
   const genreEditTitle = "Genre Update"
-  const genreSearchTitle = "Genre Name";
+  const genreSearchTitle = "Genre";
   const [modalNew, setModalNew] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
@@ -34,7 +34,15 @@ const MovieGenre = () => {
     (state) => state.categoryDetail?.category
   )
 
-  const totalGenre = GenreList?.filter((item) => item.kind === 1).length ;
+  let totalGenre ;
+  
+  try{
+    totalGenre = GenreList?.filter((item) => item.kind === 1).length ;
+  }catch(error){
+    totalGenre = 0;
+  }
+
+
 
   
 
@@ -146,7 +154,7 @@ const MovieGenre = () => {
             <div className="flex justify-center items-center h-full">
               <Spin size="large" />
             </div>
-          ) : (
+          ) : GenreList ? (
             <TableComp
             data={GenreList?.filter((item) => item.kind === 1)?.map(
               (item, index) => ({
@@ -158,7 +166,7 @@ const MovieGenre = () => {
             selectedRow={updateGenreID}
             totalItem={totalGenre}
           />
-          )}
+          ) : (<Empty/>) }
       </div>
     </>
   );

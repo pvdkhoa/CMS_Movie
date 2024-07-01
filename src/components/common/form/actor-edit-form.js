@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { updateAccount } from "../../../actions/accountAction";
 import { Button, Form, Input, Space, Upload } from "antd";
 import { useDispatch } from "react-redux";
 import { clientAxios } from "../../../config/axios.config";
@@ -42,8 +41,8 @@ const ActorEditForm = (props) => {
   useEffect(() => {
     if (props.data) {
       setAccountID(props.data.id);
-      setImageFilePath(props.data.image)
-      setTempImageFilePath(props.data.image)
+      setImageFilePath(props.data.image);
+      setTempImageFilePath(props.data.image);
       form.setFieldsValue({
         name: props.data.name,
         filmCharacter: props.data.filmCharacter,
@@ -54,16 +53,17 @@ const ActorEditForm = (props) => {
 
   const onFinish = (values) => {
     const actor = {
-        name: props.data.name,
-        filmCharacter: props.data.filmCharacter,
-        image: imageFilePath,
-        kind: 1,
-        id: props.data.id
+      name: values.name,
+      filmCharacter: values.filmCharacter,
+      image: imageFilePath,
+      kind: 1,
+      id: props.data.id,
     };
-
     dispatch(updateActor(actor));
     props.toggleEdit();
     props.onLoading();
+
+    // updateActor(actor)
   };
   const onReset = () => {
     form.resetFields();
@@ -123,17 +123,18 @@ const ActorEditForm = (props) => {
     }
   };
 
+
   const handleOnChange = ({ file, fileList, event }) => {
     setDefaultFileList(fileList);
   };
 
-  const handleOnChangeImage= () =>{
+  const handleOnChangeImage = () => {
     setImageFilePath("");
-  }
+  };
 
-  const handleOnCancelImage = () =>{
-    setImageFilePath(tempImageFilePath)
-  }
+  const handleOnCancelImage = () => {
+    setImageFilePath(tempImageFilePath);
+  };
 
   return (
     <Form
@@ -172,7 +173,7 @@ const ActorEditForm = (props) => {
       </Form.Item>
 
       <Form.Item name="UploadAvatar" label="Upload Avatar">
-      {imageFilePath && (
+        {imageFilePath && (
           <div>
             <img
               src={imageFilePath}
@@ -182,7 +183,7 @@ const ActorEditForm = (props) => {
                 height: 200,
                 padding: 8,
                 borderRadius: 12,
-                objectFit: "fill",
+                objectFit: "fit",
               }}
             />
             <div className="flex justify-end px-3">
@@ -210,13 +211,12 @@ const ActorEditForm = (props) => {
               {defaultFileList.length >= 1 ? null : <div>Upload Image</div>}
             </Upload>
             <div>
-              <Button type="primary" onClick={handleOnCancelImage} danger >
+              <Button type="primary" onClick={handleOnCancelImage} danger>
                 Cancel
               </Button>
             </div>
           </div>
         )}
-        
       </Form.Item>
 
       {/* Handle form */}

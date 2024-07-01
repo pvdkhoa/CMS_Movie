@@ -22,9 +22,12 @@ export const listEpisodesByMovieID = (movieID) => async (dispatch, getState) => 
     if (movieID !== null) {
       params.movieId = movieID;
     }
+    console.log(movieID)
     dispatch({ type: EPISODE_LIST_REQUEST });
 
     const {data} = await clientAxios.get(`/v1/episode/get-episode-list-by-movie`,{params})
+
+    console.log(data);
 
     dispatch({type: EPISODE_LIST_SUCCESS, payload: data})
 
@@ -95,8 +98,10 @@ export const updateEpisode = (episodeData) => async (dispatch, getState) => {
 export const listEpisodeDetail = (id) => async (dispatch, getState) => {
     try{
         dispatch({type: EPISODE_DETAIL_REQUEST});
+        console.log('hello')
 
-        const data = await clientAxios.get(`/v1/episode/get-episode-by-id/${id}`);
+        const {data} = await clientAxios.get(`/v1/episode/get-episode-by-id/${id}`);
+        console.log(data);
 
         dispatch({type: EPISODE_DETAIL_SUCCESS, payload: data})
 

@@ -14,7 +14,11 @@ const TableComp = (props) => {
       name: record.name,
     }),
     onSelect: (record) => {
-      props.selectedRow(record.id); 
+      props.selectedRow(record.id);
+
+      if(record.category){
+        props.selectedCategory(record.category.name);
+      }
       if(record.role != null || record.role != undefined){
         props.selectedAccount(record.role)
       }

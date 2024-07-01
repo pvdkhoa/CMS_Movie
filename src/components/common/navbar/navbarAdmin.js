@@ -12,11 +12,7 @@ const NavbarAdmin = (props) => {
     <div className=" border-b-[1px] border-gray-400 w-full flex pb-2  justify-between items-end font font-MonaSans ">
       <div className="flex flex-col w-1/3 ">
         <p className="font-bold text">{props.searchTitle}</p>
-        <Search
-          placeholder="input search text"
-          onSearch={onSearch}
-          enterButton
-        />
+         
       </div>
       <div className="flex gap-4">
         <Button size={size} onClick={props.onReset}>

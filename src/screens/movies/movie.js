@@ -7,22 +7,24 @@ import ConfirmModal from "../../components/common/modal/confirm-modal";
 import { listMovie, deleteMovie } from "../../actions/movieAction";
 import { useDispatch, useSelector } from "react-redux";
 import { listCategories, listGenre } from "../../actions/categoryAction";
-import { Spin,Button,Rate,pos } from "antd";
+import { Spin,Button,Rate,Empty } from "antd";
 import ModalEdit from "../../components/common/modal/edit-modal";
 import MovieEditForm from "../../components/common/form/movie-edit-form";
 import { listMovieDetail } from "../../actions/movieAction";
 import { UserOutlined, BookOutlined } from "@ant-design/icons";
 import NavbarMovie from "../../components/common/navbar/navbarMovie";
 import Actor from "../actor/actor";
+import Episode from "../episode/Episode";
 
-const Movie = (props) => {
-  const movieSearchTitle = "Movie Name";
+const Movie = () => {
+  const movieSearchTitle = "Movie";
   const movieEditTitle = "Movie Edit";
   const movieTitle = "Movie Register";
   const [modalNew, setModalNew] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [movieID, setMovieID] = useState(null);
+  const [categoryName, setCategoryName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isActorPage, setIsActorPage] = useState(false);
   const [isEpisodePage,setIsEpisodePage] = useState(false);
@@ -31,15 +33,16 @@ const Movie = (props) => {
 
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movieList?.movieList);
-  // const totalMovie = MovieList.length;
-  console.log(MovieList)
-  const totalMovie = 3;
+  let totalMovie;
+  try{
+    totalMovie = MovieList.length;
+  }catch(error){
+    totalMovie = 0;
+  }
   const MovieDetailList = useSelector(
     (state) => state.movieDetail?.movie
   )
   
-
-  console.log(MovieDetailList)
 
   // Toggle modal
 
@@ -57,6 +60,10 @@ const Movie = (props) => {
 
   const showUpActorPage = () =>{
     setIsActorPage(!isActorPage);
+  }
+
+  const showUpEpisodePage = () =>{
+    setIsEpisodePage(!isEpisodePage);
   }
 
   const loadingPage = () =>{
@@ -134,6 +141,10 @@ const Movie = (props) => {
     setMovieID(id);
     dispatch(listMovieDetail(id));
   };
+  const updateCategoryName = (name) =>{
+    setCategoryName(name);
+    console.log(name)
+  }
 
   const deleteMovieByID = (id) => {
     dispatch(deleteMovie(id));
@@ -162,8 +173,10 @@ const Movie = (props) => {
         toggleEdit={showUpModalEdit}
         toggleDelete={showUpModalDelete}
         toggleActor={showUpActorPage}
+        toggleEpisode={showUpEpisodePage}
         onReset={onReset}
         activeItem={movieID}
+        activeCategory={categoryName}
       />
 
       {/* Modal New */}
@@ -188,7 +201,7 @@ const Movie = (props) => {
             <div className="flex justify-center items-center h-full">
               <Spin size="large" />
             </div>
-          ) : (
+          ) : MovieList ? (
             <TableComp
           data={MovieList?.map((item, index) => ({
             ...item,
@@ -196,14 +209,18 @@ const Movie = (props) => {
           }))}
           columns={columns}
           selectedRow={updateMovieID}
+          selectedCategory={updateCategoryName}
           totalItem={totalMovie}
         />
+          ) : (
+            <Empty/>
           )}
         
       </div>
     </>)}
 
-    {isActorPage &&  (<Actor movieID={movieID} toggleActor={showUpActorPage}/>)}
+    {isActorPage &&  (<Actor movieID={movieID} toggleActor={showUpActorPage} handleReset={onReset}/>)}
+    {isEpisodePage && (<Episode movieID={movieID} toggleEpisode={showUpEpisodePage} handleReset={onReset}/>)}
       
     </>
   );

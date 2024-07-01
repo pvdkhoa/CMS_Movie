@@ -16,6 +16,7 @@ import {
 import {uploadImageReducer, uploadVideoReducer } from "./reducer/uploadRecucer";
 import { accountDeleteReducer,  accountDetailReducer,  accountRegisterReducer , accountsListReducer, accountUpdateReducer } from "./reducer/accountReducer";
 import { actorDeleteReducer, actorDetailReducer, actorRegisterReducer, actorsListReducer, actorUpdateReducer } from "./reducer/actorReducer";
+import { episodeDeleteReducer, episodeDetailReducer, episodeRegisterReducer, episodesListReducer, episodeUpdateReducer } from "./reducer/episodeReducer";
 
 const rootReducer = combineReducers({
   accountList: accountsListReducer,
@@ -41,6 +42,12 @@ const rootReducer = combineReducers({
   actorUpdate: actorUpdateReducer,
   actorDelete: actorDeleteReducer,
   actorDetail: actorDetailReducer,
+
+  episodeList: episodesListReducer,
+  episodeRegister: episodeRegisterReducer,
+  episodeUpdate: episodeUpdateReducer,
+  episodeDelete: episodeDeleteReducer,
+  episodeDetail: episodeDetailReducer,
 
   genreList: genreListReducer,
   categoryGenreList: categoryGenreListReducer,
