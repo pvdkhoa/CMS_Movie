@@ -427,54 +427,55 @@ const MovieEditForm = (props) => {
         )}
       </Form.Item>
 
-      <Form.Item name="UploadVideo" label="Upload Video">
-        {}
+      {
+        selectedCategoryId !=1 ? (<Form.Item name="UploadVideo" label="Upload Video">
 
-        <Form.Item
-          name="dragger"
-          valuePropName="filelist"
-          getValueFromEvent={normFile}
-          noStyle
-        >
-          {videoPath ? (
-            <div className="w-full p-3 rounded-md bg-[#C7C8CC]  flex  justify-between items-center h-full">
-              <div className="flex gap-2">
-                <PaperClipOutlined />
-                <a className="h-full truncate" href={videoPath}>
-                  {videoPath.split("/").pop()}
-                </a>
+          <Form.Item
+            name="dragger"
+            valuePropName="filelist"
+            getValueFromEvent={normFile}
+            noStyle
+          >
+            {videoPath ? (
+              <div className="w-full p-3 rounded-md bg-[#C7C8CC]  flex  justify-between items-center h-full">
+                <div className="flex gap-2">
+                  <PaperClipOutlined />
+                  <a className="h-full truncate" href={videoPath}>
+                    {videoPath.split("/").pop()}
+                  </a>
+                </div>
+  
+                <div className="flex justify-end">
+                  <Button type="primary" onClick={handleOnChangeVideo}>Change Video</Button>
+                </div>
               </div>
-
-              <div className="flex justify-end">
-                <Button type="primary" onClick={handleOnChangeVideo}>Change Video</Button>
+            ) : (
+              <div>
+                <Upload.Dragger
+                  name="video"
+                  accept="video/*"
+                  customRequest={uploadVideo}
+                >
+                  <p className="ant-upload-drag-icon">
+                    <InboxOutlined />
+                  </p>
+                  <p className="ant-upload-text">
+                    Click or drag video file to this area to upload
+                  </p>
+                  <p className="ant-upload-hint">
+                    Support for a single or bulk upload of video files.
+                  </p>
+                </Upload.Dragger>
+                <div className="flex justify-end mt-3">
+                  <Button type="primary" danger onClick={handleCancelChangeVideo}>
+                    Cancel
+                  </Button>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div>
-              <Upload.Dragger
-                name="video"
-                accept="video/*"
-                customRequest={uploadVideo}
-              >
-                <p className="ant-upload-drag-icon">
-                  <InboxOutlined />
-                </p>
-                <p className="ant-upload-text">
-                  Click or drag video file to this area to upload
-                </p>
-                <p className="ant-upload-hint">
-                  Support for a single or bulk upload of video files.
-                </p>
-              </Upload.Dragger>
-              <div className="flex justify-end mt-3">
-                <Button type="primary" danger onClick={handleCancelChangeVideo}>
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          )}
-        </Form.Item>
-      </Form.Item>
+            )}
+          </Form.Item>
+        </Form.Item>) : (<div></div>)
+      }
 
       <Form.Item {...tailLayout}>
         <Space>

@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+
 import Movie from "./movies/movie";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
+
   UserOutlined,
   VideoCameraOutlined,
-  ProfileOutlined,
-  FireFilled,
-} from "@ant-design/icons";
+  ProfileOutlined,} from "@ant-design/icons";
 import { Button, Layout, Menu, Spin, theme } from "antd";
 const { Header, Sider, Content } = Layout;
-import { logo } from "../assets/images";
+
 import MovieCategory from "./movies/movie_category";
 import MovieGenre from "./movies/movie_genre";
 import Account from "./account/account";
+
 
 const AdminPage = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -24,7 +22,8 @@ const AdminPage = () => {
   const [isCategoryPage, setCategoryPage] = useState(false);
   const [isGenrePage, setGenrePage] = useState(false);
   const [isAccountPage, setAccountPage] = useState(false);
-  const [isRatingPage, setRatingPage] = useState(false);
+
+
   const [isLoading, setIsLoading] = useState(false);
 
   const toggleMoviePage = () => {
@@ -33,7 +32,7 @@ const AdminPage = () => {
     setCategoryPage(false);
     setGenrePage(false);
     setAccountPage(false);
-    setRatingPage(false);
+
   };
 
   const toggleCategoryPage = () => {
@@ -42,7 +41,7 @@ const AdminPage = () => {
     setCategoryPage(true);
     setGenrePage(false)
     setAccountPage(false);
-    setRatingPage(false);
+
   };
 
   const toggleGenrePage = () => {
@@ -51,7 +50,6 @@ const AdminPage = () => {
     setCategoryPage(false);
     setGenrePage(true)
     setAccountPage(false);
-    setRatingPage(false);
   };
 
   const toggleAccountPage = () => {
@@ -60,8 +58,8 @@ const AdminPage = () => {
     setCategoryPage(false);
     setGenrePage(false)
     setAccountPage(true);
-    setRatingPage(false);
   }
+
 
   useEffect(() => {
     if (isLoading) {
@@ -114,12 +112,7 @@ const AdminPage = () => {
               icon: <UserOutlined />,
               label: "Account",
               onClick: toggleAccountPage
-            },
-            {
-              key: "5",
-              icon: <FireFilled />,
-              label: "Rating",
-            },
+            }
           ]}
         />
       </Sider>

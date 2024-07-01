@@ -11,12 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { listAllCategoryAndGenre, deleteCategory, listDetailCategory } from "../../actions/categoryAction";
 import { Spin } from "antd";
 import CategoryEditForm from "../../components/common/form/category-edit-form";
+import NavbarCategory from "../../components/common/navbar/navbarCategory";
 
 
 const MovieCategory = () => {
   const categoryTitle = "Category Register"
   const categoryEditTitle = "Category Update"
-  const categorySearchTitle = "Category name";
+  const categorySearchTitle = "Category";
   const [modalNew, setModalNew] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
@@ -110,11 +111,8 @@ const MovieCategory = () => {
 
   return (
     <>
-      <Navbar
+      <NavbarCategory
         searchTitle={categorySearchTitle}
-        toggleNew={showUpModalNew}
-        toggleEdit={showUpModalEdit}
-        toggleDelete={showUpModalDelete}
         onReset={onReset}
         activeItem={categoryID}
       />

@@ -7,12 +7,15 @@ import ConfirmModal from "../../components/common/modal/confirm-modal";
 import { listMovie, deleteMovie } from "../../actions/movieAction";
 import { useDispatch, useSelector } from "react-redux";
 import { listCategories, listGenre } from "../../actions/categoryAction";
-import { Spin } from "antd";
+import { Spin,Button,Rate,pos } from "antd";
 import ModalEdit from "../../components/common/modal/edit-modal";
 import MovieEditForm from "../../components/common/form/movie-edit-form";
 import { listMovieDetail } from "../../actions/movieAction";
+import { UserOutlined, BookOutlined } from "@ant-design/icons";
+import NavbarMovie from "../../components/common/navbar/navbarMovie";
+import Actor from "../actor/actor";
 
-const Movie = () => {
+const Movie = (props) => {
   const movieSearchTitle = "Movie Name";
   const movieEditTitle = "Movie Edit";
   const movieTitle = "Movie Register";
@@ -21,10 +24,15 @@ const Movie = () => {
   const [modalDelete, setModalDelete] = useState(false);
   const [movieID, setMovieID] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isActorPage, setIsActorPage] = useState(false);
+  const [isEpisodePage,setIsEpisodePage] = useState(false);
+
+  const [position, setPosition] = useState('end');
 
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movieList?.movieList);
   // const totalMovie = MovieList.length;
+  console.log(MovieList)
   const totalMovie = 3;
   const MovieDetailList = useSelector(
     (state) => state.movieDetail?.movie
@@ -46,6 +54,10 @@ const Movie = () => {
   const showUpModalDelete = () => {
     setModalDelete(!modalDelete);
   };
+
+  const showUpActorPage = () =>{
+    setIsActorPage(!isActorPage);
+  }
 
   const loadingPage = () =>{
     setIsLoading(true);
@@ -75,6 +87,10 @@ const Movie = () => {
       title: "Created Date",
       dataIndex: "createdDate",
     },
+    {
+      title: "Rating",
+      render: (_, record) => <Rate disabled defaultValue={record.ratingAverage} />, 
+    }
   ];
 
   const CategoryName = ({ record }) => {
@@ -130,19 +146,22 @@ const Movie = () => {
     setModalNew(false);
     setModalDelete(false);
     setModalEdit(false);
+    setIsActorPage(false);
     setMovieID(null);
-    setIsLoading(true)
+    setIsLoading(true);
   }
 
 
 
   return (
     <>
-      <Navbar
+    {(!isEpisodePage && !isActorPage) && (<>
+      <NavbarMovie
         searchTitle={movieSearchTitle}
         toggleNew={showUpModalNew}
         toggleEdit={showUpModalEdit}
         toggleDelete={showUpModalDelete}
+        toggleActor={showUpActorPage}
         onReset={onReset}
         activeItem={movieID}
       />
@@ -182,6 +201,10 @@ const Movie = () => {
           )}
         
       </div>
+    </>)}
+
+    {isActorPage &&  (<Actor movieID={movieID} toggleActor={showUpActorPage}/>)}
+      
     </>
   );
 };

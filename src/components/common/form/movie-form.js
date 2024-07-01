@@ -249,7 +249,7 @@ const MovieForm = (props) => {
       </Form.Item>
 
       {/* Genre */}
-      {selectedCategoryId ? (
+      {(selectedCategoryId || selectedCategoryId == 0) ? (
         <Form.Item
           name="genre"
           label="Genre"
@@ -352,31 +352,34 @@ const MovieForm = (props) => {
         )}
       </Form.Item>
 
-      <Form.Item name="UploadVideo" label="Upload Video"> 
-        <Form.Item
-          name="dragger"
-          valuePropName="fileList"
-          getValueFromEvent={normFile}
-          noStyle
-        >
-          <Upload.Dragger
-           
-            name="video"
-            accept="video/*"
-            customRequest={uploadVideo}
-          >
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">
-              Click or drag video file to this area to upload
-            </p>
-            <p className="ant-upload-hint">
-              Support for a single or bulk upload of video files.
-            </p>
-          </Upload.Dragger>
-        </Form.Item>
-      </Form.Item>
+        {
+          selectedCategoryId != 1 ? (<Form.Item name="UploadVideo" label="Upload Video"> 
+            <Form.Item
+              name="dragger"
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
+              noStyle
+            >
+              <Upload.Dragger
+               
+                name="video"
+                accept="video/*"
+                customRequest={uploadVideo}
+              >
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">
+                  Click or drag video file to this area to upload
+                </p>
+                <p className="ant-upload-hint">
+                  Support for a single or bulk upload of video files.
+                </p>
+              </Upload.Dragger>
+            </Form.Item>
+          </Form.Item>) : (<div></div>)
+        }
+      
 
       <Form.Item {...tailLayout}>
         <Space>
