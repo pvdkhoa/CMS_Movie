@@ -3,7 +3,7 @@ import { createEpisode } from "../../../actions/episodeAction";
 import { Button, Form, Input, Space, Image, Upload } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { clientAxios } from "../../../config/axios.config";
+import { clientAxios, uploadClientAxios } from "../../../config/axios.config";
 
 const layout = {
   labelCol: {
@@ -82,7 +82,7 @@ const EpisodeRegisterForm = (props) => {
     fmData.append("file", file);
     fmData.append("bandwidth", "1080p");
     try {
-      const res = await clientAxios.post(
+      const res = await uploadClientAxios.post(
         "/v1/file/upload-video/s3",
         fmData,
         config

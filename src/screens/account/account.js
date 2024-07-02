@@ -24,13 +24,7 @@ const Account = () => {
   const [isLoading, setIsLoading] = useState(false);
   const AccountList = useSelector((state) => state.accountList?.accounts);
   const AccountDetail = useSelector((state) => state.accountDetail?.account);
-  console.log(AccountDetail)
-  let totalAccounts ;
-  try{
-    totalAccounts = AccountList.length;
-  }catch(error){
-    totalAccounts = 0;
-  }
+  const totalAccounts = AccountList?.length ?? 0;
 
   const columns = [
     {

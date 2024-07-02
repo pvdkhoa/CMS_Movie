@@ -30,12 +30,8 @@ const MovieCategory = () => {
   const CategoryDetailList = useSelector(
     (state) => state.categoryDetail?.category
   )
-  let totalCategory 
-  try{
-    totalCategory = CategoryList?.filter((item) => item.kind === 0).length ;
-  }catch(error){
-    totalCategory = 0;
-  }
+  const totalCategory = CategoryList?.filter((item) => item?.kind === 0)?.length ?? 0;
+
   
 
   // Toggle modal

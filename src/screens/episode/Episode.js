@@ -29,15 +29,8 @@ const Episode = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const EpisodeList = useSelector((state) => state.episodeList?.episodes);
   const EpisodeDetail = useSelector((state) => state.episodeDetail?.episode);
-
-  let totalEpisode;
-
-  try {
-    totalEpisode = EpisodeList.length;
-  } catch (error) {
-    console.error("Error calculating total episodes:", error);
-    totalEpisode = 0;
-  }
+    const totalEpisode = EpisodeList?.length ?? 0;
+ 
 
   const columns = [
     {

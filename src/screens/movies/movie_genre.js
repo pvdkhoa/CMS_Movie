@@ -34,13 +34,9 @@ const MovieGenre = () => {
     (state) => state.categoryDetail?.category
   )
 
-  let totalGenre ;
+  const totalGenre = GenreList?.filter((item) => item.kind === 1)?.length ?? 0;
   
-  try{
-    totalGenre = GenreList?.filter((item) => item.kind === 1).length ;
-  }catch(error){
-    totalGenre = 0;
-  }
+
 
 
 

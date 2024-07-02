@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { listGenre, listCategories } from "../../../actions/categoryAction";
 import { useDispatch, useSelector } from "react-redux";
-import { clientAxios } from "../../../config/axios.config";
+import { clientAxios, uploadClientAxios } from "../../../config/axios.config";
 import {
   Button,
   Form,
@@ -183,7 +183,7 @@ const MovieForm = (props) => {
     fmData.append("file", file);
     fmData.append("bandwidth", "1080p");
     try {
-      const res = await clientAxios.post(
+      const res = await uploadClientAxios.post(
         "/v1/file/upload-video/s3",
         fmData,
         config

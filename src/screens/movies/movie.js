@@ -33,12 +33,7 @@ const Movie = () => {
 
   const dispatch = useDispatch();
   const MovieList = useSelector((state) => state.movieList?.movieList);
-  let totalMovie;
-  try{
-    totalMovie = MovieList.length;
-  }catch(error){
-    totalMovie = 0;
-  }
+  const totalMovie = MovieList?.length ?? 0;
   const MovieDetailList = useSelector(
     (state) => state.movieDetail?.movie
   )
@@ -101,19 +96,27 @@ const Movie = () => {
   ];
 
   const CategoryName = ({ record }) => {
-    return record.category.name;
+    if(record.category){
+      return record.category.name;
+    }
+    return 
+    
   };
   const GenreCategories = ({ record }) => {
-    return (
-      <div>
-        {record.genres.map((genre, index) => (
-          <span key={index}>
-            {genre.categoryName}
-            {index < record.genres.length - 1 && ", "}
-          </span>
-        ))}
-      </div>
-    );
+    if(record.genres){
+      return (
+        <div>
+          {record.genres.map((genre, index) => (
+            <span key={index}>
+              {genre.categoryName}
+              {index < record.genres.length - 1 && ", "}
+            </span>
+          ))}
+        </div>
+      );
+    }
+    return;
+    
   };
 
   // Logic Code

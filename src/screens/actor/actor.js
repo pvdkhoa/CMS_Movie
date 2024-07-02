@@ -4,7 +4,7 @@ import TableComp from "../../components/common/table/table";
 import ModalComp from "../../components/common/modal/modal";
 import ConfirmModal from "../../components/common/modal/confirm-modal";
 import ModalEdit from "../../components/common/modal/edit-modal";
-import { Spin, Image } from "antd";
+import { Spin, Image, Empty } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -31,8 +31,9 @@ const Actor = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const ActorList = useSelector((state) => state.actorList?.actors);
   const ActorDetail = useSelector((state) => state.actorDetail?.actor);
+  const totalActors = ActorList?.length ?? 0;
 
-  const totalActors = ActorList.length;
+  
 
   const columns = [
     {
@@ -174,7 +175,7 @@ const Actor = (props) => {
           <div className="flex justify-center items-center h-full">
             <Spin size="large" />
           </div>
-        ) : (
+        )  : ActorList ? (
           <TableComp
             data={ActorList?.map((item, index) => ({
               ...item,
@@ -184,7 +185,7 @@ const Actor = (props) => {
             selectedRow={updateActorID}
             totalItem={totalActors}
           />
-        )}
+        ): (<Empty/>)}
       </div>
     </>
   );
