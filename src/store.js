@@ -2,7 +2,12 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { thunk } from "redux-thunk";
 // import { composeWithDevTools } from "redux-devtools-extension";
 
-import { movieDeleteReducer, movieDetailReducer, movieListReducer, movieRegisterReducer } from "./reducer/movieReducer";
+import {
+  movieDeleteReducer,
+  movieDetailReducer,
+  movieListReducer,
+  movieRegisterReducer,
+} from "./reducer/movieReducer";
 import {
   categoryDeleteReducer,
   categoryDetailReducer,
@@ -13,12 +18,36 @@ import {
   genreListReducer,
 } from "./reducer/categoryReducer";
 
-import {uploadImageReducer, uploadVideoReducer } from "./reducer/uploadRecucer";
-import { accountDeleteReducer,  accountDetailReducer,  accountRegisterReducer , accountsListReducer, accountUpdateReducer } from "./reducer/accountReducer";
-import { actorDeleteReducer, actorDetailReducer, actorRegisterReducer, actorsListReducer, actorUpdateReducer } from "./reducer/actorReducer";
-import { episodeDeleteReducer, episodeDetailReducer, episodeRegisterReducer, episodesListReducer, episodeUpdateReducer } from "./reducer/episodeReducer";
+import {
+  uploadImageReducer,
+  uploadVideoReducer,
+} from "./reducer/uploadRecucer";
+import {
+  accountDeleteReducer,
+  accountDetailReducer,
+  accountRegisterReducer,
+  accountsListReducer,
+  accountUpdateReducer,
+} from "./reducer/accountReducer";
+import {
+  actorDeleteReducer,
+  actorDetailReducer,
+  actorRegisterReducer,
+  actorsListReducer,
+  actorUpdateReducer,
+} from "./reducer/actorReducer";
+import {
+  episodeDeleteReducer,
+  episodeDetailReducer,
+  episodeRegisterReducer,
+  episodesListReducer,
+  episodeUpdateReducer,
+} from "./reducer/episodeReducer";
+import { userLoginReducer } from "./reducer/userReducer";
 
 const rootReducer = combineReducers({
+  userLogin: userLoginReducer,
+
   accountList: accountsListReducer,
   accountDelete: accountDeleteReducer,
   accountRegister: accountRegisterReducer,
@@ -53,14 +82,12 @@ const rootReducer = combineReducers({
   categoryGenreList: categoryGenreListReducer,
 
   uploadImage: uploadImageReducer,
-  uploadVideo: uploadVideoReducer
+  uploadVideo: uploadVideoReducer,
 });
 
-const userInfoFromStorage =
-  localStorage.getItem("userInfo") &&
-  localStorage.getItem("userInfo") !== undefined
-    ? JSON.parse(localStorage.getItem("userInfo"))
-    : null;
+const userInfoFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },

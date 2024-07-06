@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from 'react-router-dom';
+import { useDispatch,useSelector } from "react-redux";
 import Movie from "./movies/movie";
 import {
   MenuFoldOutlined,
@@ -7,16 +8,23 @@ import {
 
   UserOutlined,
   VideoCameraOutlined,
-  ProfileOutlined,} from "@ant-design/icons";
+  ProfileOutlined,
+  LogoutOutlined  
+} from "@ant-design/icons";
 import { Button, Layout, Menu, Spin, theme } from "antd";
 const { Header, Sider, Content } = Layout;
 
 import MovieCategory from "./movies/movie_category";
 import MovieGenre from "./movies/movie_genre";
 import Account from "./account/account";
+import { logout } from "../actions/userAction";
 
 
-const AdminPage = () => {
+const AdminPage = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo, error, loading } = userLogin;
   const [collapsed, setCollapsed] = useState(false);
   const [isMoviePage, setMoviePage] = useState(true);
   const [isCategoryPage, setCategoryPage] = useState(false);
@@ -58,6 +66,21 @@ const AdminPage = () => {
     setCategoryPage(false);
     setGenrePage(false)
     setAccountPage(true);
+  }
+  
+  const onReset = () =>{
+    setIsLoading(false);
+    setMoviePage(true);
+    setCategoryPage(false);
+    setGenrePage(false);
+    setAccountPage(false);
+  }
+
+  const handleLogout = () =>{
+    dispatch(logout())
+    onReset()
+    props.handleLogout();
+    navigate('/');
   }
 
 
@@ -112,6 +135,12 @@ const AdminPage = () => {
               icon: <UserOutlined />,
               label: "Account",
               onClick: toggleAccountPage
+            },
+            {
+              key: "5",
+              icon: <LogoutOutlined/>,
+              label: "Logout",
+              onClick: handleLogout
             }
           ]}
         />
